@@ -20,7 +20,8 @@ export const logout = async ({ token }) => {
         Authorization: `Bearer ${localStorage.getItem('accessToken')}`
       }
     })
-    localStorage.removeItem('accessToken')
+    localStorage.removeItem('accessToken');
+    localStorage.removeItem('userInfo');
     return data
   } catch (error) {
     console.log(error);

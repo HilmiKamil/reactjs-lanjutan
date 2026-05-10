@@ -16,6 +16,8 @@ import BookEdit from "./pages/admin/books/edit"
 import ShowBook from "./pages/public/books/show"
 import AuthorEdit from "./pages/admin/author/edit"
 import GenreEdit from "./pages/admin/genre/edit"
+import GuestRoute from "./routes/GuestRoute"
+import ProtectedRoute from "./routes/ProtectedRoute"
 
 function App() {
   return (
@@ -35,10 +37,13 @@ function App() {
         </Route>
 
         {/* Auth */}
-        <Route path="login" element={<Login />} />
-        <Route path="register" element={<Register />} />
+        <Route element={<GuestRoute />}> 
+          <Route path="login" element={<Login />} />
+          <Route path="register" element={<Register />} />
+        </Route>
 
           {/* Admin */}
+          <Route element={<ProtectedRoute adminOnly={true} />}>
           <Route path="admin" element={<AdminLayout />} >
           <Route index element={<Dashboard />} />
           <Route path="books">
@@ -57,6 +62,7 @@ function App() {
               <Route index element={<AdminAuthors />} />
               <Route path="create" element={<AuthorCreate/>} />
               <Route path="edit/:id" element={<AuthorEdit/>} />
+          </Route>
           </Route>
           
         </Route>

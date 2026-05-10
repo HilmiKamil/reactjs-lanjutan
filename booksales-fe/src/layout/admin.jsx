@@ -1,23 +1,10 @@
 import { Link, Outlet, useNavigate } from "react-router-dom";
-import { logout, useDecodeToken } from "../_services/auth";
-import { useEffect } from "react";
+import { logout } from "../_services/auth";
 
 export default function AdminLayout() {
   const navigate = useNavigate();
   const token = localStorage.getItem("accessToken");
   const userInfo = JSON.parse(localStorage.getItem("userInfo"));
-  const decodedData = useDecodeToken(token);
-
-  useEffect(() => {
-    if (!token || !decodedData || !decodedData.success) {
-      navigate("/login");
-    }
-
-    const role = userInfo.role;
-    if (role !== "admin" || !role) {
-      navigate("/");
-    }
-  }, [token, decodedData, navigate]);
 
   const handleLogout = async () => {
     if (token) {
@@ -166,7 +153,7 @@ export default function AdminLayout() {
             <ul className="space-y-2">
               <li>
                 <Link
-                  to={"admin"}
+                  to={"/admin"}
                   className="flex items-center p-2 text-base font-medium text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group"
                 >
                   <svg
@@ -184,7 +171,7 @@ export default function AdminLayout() {
               </li>
               <li>
                 <Link
-                  to={"/admin/users"}
+                  to={"/admin"}
                   className="flex items-center p-2 text-base font-medium text-gray-900 rounded-lg transition duration-75 hover:bg-gray-100 dark:hover:bg-gray-700 dark:text-white group"
                 >
                   <svg

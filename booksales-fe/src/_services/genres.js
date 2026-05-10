@@ -1,13 +1,21 @@
 import { API } from "../_api"
 
 export const getGenres = async () => {
-  const { data } = await API.get("/genres")
+  const { data } = await API.get("/genres", {
+      headers: {
+        "Authorization": `Bearer ${localStorage.getItem('accessToken')}`
+      }
+    })
   return data.data
 }
 
 export const createGenre = async (data) => {
   try {
-    const response = await API.post("/genres", data)
+    const response = await API.post("/genres", data, {
+      headers: {
+        "Authorization": `Bearer ${localStorage.getItem('accessToken')}`
+      }
+    })
     return response.data
   } catch (error) {
     console.log(error);

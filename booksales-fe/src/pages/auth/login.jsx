@@ -46,7 +46,10 @@ export default function Login() {
 
   useEffect(() => {
     if (token&&decodedData&&decodedData.success) {
-      navigate( "/admin")
+      const user = JSON.parse(localStorage.getItem("userInfo"));
+      navigate(
+        user?.role === "admin" ? "/admin" : "/"
+      );
     }
   }, [token, decodedData, navigate])
 
